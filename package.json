@@ -1,0 +1,32 @@
+{
+  "name": "php_project",
+  "version": "1.0.0",
+  "description": "PHP Project : Car Feature System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./Web_Server/server.js",
+    "dev": "nodemon ./Web_Server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MOAboAli/MWA_Course_PHP.git"
+  },
+  "keywords": [
+    "PHP"
+  ],
+  "author": "MoAboali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MOAboAli/MWA_Course_PHP/issues"
+  },
+  "homepage": "https://github.com/MOAboAli/MWA_Course_PHP#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.1",
+    "nodemon": "^3.1.4",
+    "path": "^0.12.7"
+  }
+}
