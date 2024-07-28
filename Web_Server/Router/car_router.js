@@ -6,13 +6,11 @@ const Controller = require("../../Controller/cars_controller.js");
 
 
 router.route("/")
-    .get(Controller.getAll);
+    .get(Controller.getAll)
 
 
-// router.route('/api/games/:id')
-//     .get(Controller.getgamesbyid)
-//     .delete(Controller.deleteGame);
-
+router.route("/addone")
+    .post(Controller.addOne);
 
 
 module.exports = router;
