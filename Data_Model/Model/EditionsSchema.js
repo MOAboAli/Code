@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const EditionSchema = mongoose.Schema({
+module.exports.EditionSchema = mongoose.Schema({
     Name: {
         type: String,
         required: true

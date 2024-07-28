@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const EditionSchema = require("./EditionsSchema.js");
+
 const CarsSchema = mongoose.Schema({
     Make: {
         type: String,
@@ -17,3 +19,5 @@ const CarsSchema = mongoose.Schema({
     },
     Editions: [EditionSchema]
 })
+
+module.exports = mongoose.model("car", CarsSchema, "cars");

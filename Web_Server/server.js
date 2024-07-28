@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const path = require('path');
-const routes = require("./Router/router.js");
-require("../Data_Model/Database_Con/Car_DB.js");
+const car_route = require("../Web_Server/Router/car_router.js");
+require("../Data_Model/Database_Con/Car_DB.js")
 
 
 
@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", routes);
+app.use("/api/cars", car_route);
 
 const server = app.listen(process.env.PORT, function () {
     const port = server.address().port;
