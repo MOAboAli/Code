@@ -1,6 +1,21 @@
 const mongoose = require("mongoose");
 
-const EditionSchema = require("./EditionsSchema.js");
+//const EditionSchema = require("./EditionsSchema.js");
+
+const EditionSchema = mongoose.Schema({
+    Name: {
+        type: String,
+        required: true
+    },
+    Features: {
+        type: String,
+        required: true
+    },
+    Description: {
+        type: String,
+        required: false
+    }
+})
 
 const CarsSchema = mongoose.Schema({
     Make: {
@@ -21,3 +36,4 @@ const CarsSchema = mongoose.Schema({
 })
 
 module.exports = mongoose.model("car", CarsSchema, "cars");
+//module.exports = mongoose.model("Edition", EditionSchema, "Editions");
