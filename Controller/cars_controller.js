@@ -63,7 +63,7 @@ const deleteOneitemCallbackified = callbackify(function (dataCollection, query) 
 module.exports.deletegetOneitembyid = function (req, res) {
     deleteOneitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, Data) {
         if (err) { res.status(500).json({ error: err }); }
-        else { res.status(200).json(Data); }
+        else { res.status(200).json({ message: "Item Deleted" }); }
     });
 
 }
@@ -83,24 +83,29 @@ exports.fullupdateeitem = function (req, res) {
             res.status(500).json({ error: err });
         }
         else {
-            item = Data;
+
+
+            const Newitem = {
+                ...req.body,
+                Editions: Data.Editions
+            };
+
+            try {
+                fullupdateitembackified(Cars, { _id: new ObjectId(req.params.id) }, Newitem, true, function (err, response) {
+                    if (err) { res.status(500).json({ error: err }); }
+                    else { res.status(201).json(response); }
+                });
+            } catch (err) {
+                res.status(400).json({ message: err.message });
+            }
+
+
+
 
         }
     });
 
-    const Newitem = {
-        ...req.body,
-        Editions: item.Editions
-    };
 
-    try {
-        fullupdateitembackified(Cars, { _id: new ObjectId(req.params.id) }, Newitem, true, function (err, response) {
-            if (err) { res.status(500).json({ error: err }); }
-            else { res.status(201).json(response); }
-        });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
 }
 
 
