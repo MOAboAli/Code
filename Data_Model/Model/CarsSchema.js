@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 //const EditionSchema = require("./EditionsSchema.js");
-
+console.log("Schema");
 const EditionSchema = mongoose.Schema({
     Name: {
         type: String,
@@ -36,4 +36,5 @@ const CarsSchema = mongoose.Schema({
 })
 
 module.exports = mongoose.model("car", CarsSchema, "cars");
+mongoose.model("car", CarsSchema, "cars");
 //module.exports = mongoose.model("Edition", EditionSchema, "Editions");

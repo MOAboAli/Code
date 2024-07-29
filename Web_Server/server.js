@@ -1,9 +1,9 @@
 require("dotenv").config();
+require("../Data_Model/Database_Con/Car_DB.js")
 const express = require("express");
 const path = require('path');
 const car_route = require("../Web_Server/Router/car_router.js");
 const Edition_route = require("../Web_Server/Router/Editions_router.js");
-require("../Data_Model/Database_Con/Car_DB.js")
 
 
 
