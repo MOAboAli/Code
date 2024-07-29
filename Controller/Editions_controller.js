@@ -13,7 +13,7 @@ const getAllitemCallbackified = callbackify(function (dataCollection, CarID) {
 });
 module.exports.getAllitems = function (req, res) {
     getAllitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, Data) {
-        if (err) { res.status(500).json({ error: err }); }
+        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
         else { res.status(200).json(Data); }
     });
 }
@@ -24,7 +24,7 @@ const getOneitemCallbackified = callbackify(function (dataCollection, CarID, que
 });
 module.exports.getgetOneitembyid = function (req, res) {
     getOneitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, { _id: new ObjectId(req.params.Editionsid) }, function (err, Data) {
-        if (err) { res.status(500).json({ error: err }); }
+        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
         else { res.status(200).json(Data); }
     });
 
@@ -52,7 +52,7 @@ exports.createitem = function (req, res) {
 
     try {
         finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-            if (err) { res.status(500).json({ error: err }); }
+            if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
             else if (!item) {
                 return res.status(404).json({ message: 'Car not found' });
             }
@@ -63,7 +63,7 @@ exports.createitem = function (req, res) {
                 console.log(item.Editions);
                 createitembackified(item, function (saveErr, updatedItem) {
                     if (saveErr) {
-                        return res.status(500).json({ error: saveErr });
+                        return res.status(process.env.status_Code_server_error).json({ error: saveErr });
                     }
                     res.status(201).json(updatedItem);
                 });
@@ -84,7 +84,7 @@ exports.createitem = function (req, res) {
 module.exports.deletegetOneitembyid = function (req, res) {
 
     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-        if (err) { res.status(500).json({ error: err }); }
+        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
         else if (!item) {
             return res.status(404).json({ message: 'Car not found' });
         }
@@ -94,7 +94,7 @@ module.exports.deletegetOneitembyid = function (req, res) {
             item.Editions.splice(editionIndex, 1);
             createitembackified(item, function (saveErr, updatedItem) {
                 if (saveErr) {
-                    return res.status(500).json({ error: saveErr });
+                    return res.status(process.env.status_Code_server_error).json({ error: saveErr });
                 }
                 res.status(201).json(updatedItem);
             });
@@ -113,7 +113,7 @@ module.exports.deletegetOneitembyid = function (req, res) {
 exports.fullupdateeitem = function (req, res) {
 
     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-        if (err) { res.status(500).json({ error: err }); }
+        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
         else if (!item) {
             return res.status(404).json({ message: 'Car not found' });
         }
@@ -132,7 +132,7 @@ exports.fullupdateeitem = function (req, res) {
 
             createitembackified(item, function (saveErr, updatedItem) {
                 if (saveErr) {
-                    return res.status(500).json({ error: saveErr });
+                    return res.status(process.env.status_Code_server_error).json({ error: saveErr });
                 }
                 res.status(201).json(updatedItem);
             });
@@ -152,7 +152,7 @@ exports.fullupdateeitem = function (req, res) {
 
 
 //     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-//         if (err) { res.status(500).json({ error: err }); }
+//         if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
 //         else if (!item) {
 //             return res.status(404).json({ message: 'Car not found' });
 //         }
@@ -163,7 +163,7 @@ exports.fullupdateeitem = function (req, res) {
 //             item.Editions[index] = { ...oldObj, ...req.body };
 //             createitembackified(item, function (saveErr, updatedItem) {
 //                 if (saveErr) {
-//                     return res.status(500).json({ error: saveErr });
+//                     return res.status(process.env.status_Code_server_error).json({ error: saveErr });
 //                 }
 //                 res.status(201).json(updatedItem);
 //             });
