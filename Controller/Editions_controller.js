@@ -1,7 +1,4 @@
-const mongoose = require("mongoose");
 const Cars = require("../Data_Model/Model/CarsSchema.js");
-const Editions = require("../Data_Model/Model/EditionsSchema.js");
-const { log } = require("console");
 const callbackify = require("util").callbackify;
 const ObjectId = require("mongodb").ObjectId;
 
