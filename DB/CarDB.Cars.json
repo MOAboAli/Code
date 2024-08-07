@@ -1,0 +1,38 @@
+[
+    {
+        "_id": "66a6cf14357b9451f8a190ef",
+        "Make": "Ford",
+        "Model": "Mustang Shelby ",
+        "Year": 1967,
+        "Editions": [
+            {
+                "Name": "GT350",
+                "Features": "V8 Engine, 306 horsepowe",
+                "Description": "This model featured a 289 engine with 306 horsepower, which was more powerful than Ford's standard 289 that year. It also had a K-Code high performance engine and a \"COBRA\" aluminum valve cover. To keep the weight down and the look distinctive, Shelby designers created a custom fiberglass front end with two high-beam headlamps in the center of the grille.",
+                "_id": "66a6d0aa357b9451f8a190f5"
+            },
+            {
+                "Name": "GT500",
+                "Features": "FE Series Cobra Jet V8 engine that produced 355 horsepower",
+                "Description": "This model was the first year of the GT500 and was equipped with a 428 cubic-inch \"Ford Cobra\" FE Series Cobra Jet V8 engine that produced 355 horsepower. It also had two 600 CFM Holley four-barrel carburetors and a mid-rise aluminum intake manifold. The GT500 had a distinctive appearance with an iconic front fascia, side scoops, \"ducktail\" rear spoiler, and wide tail lamps. It was the last Shelby model built at the Shelby American workshop in Venice, California, and is highly sought after by collectors today",
+                "_id": "66a6d0d2357b9451f8a190f9"
+            }
+        ],
+        "__v": 2
+    },
+    {
+        "_id": "66a6cff9357b9451f8a190f1",
+        "Make": "Jaguar ",
+        "Model": "E-Type Series 1 ",
+        "Year": 1962,
+        "Editions": [
+            {
+                "Name": "Series 1 Fixed Head Coupé",
+                "Features": "3.8-Litre, Fixed Head Coupé",
+                "Description": "Body Style: The fixed head coupé body style was characterized by its enclosed roof, as opposed to the roadster version.\nDesign Updates: The Series 1 remained largely unchanged in its overall design but included updates such as improved seats and interior refinements.",
+                "_id": "66a6d2e8dac6edfb4ab060c5"
+            }
+        ],
+        "__v": 7
+    }
+]
