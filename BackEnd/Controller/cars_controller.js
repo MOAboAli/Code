@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Cars = mongoose.model(process.env.Car_MODEL);
 const callbackify = require("util").callbackify;
 const ObjectId = require("mongodb").ObjectId;
+const Response = require('../_Utilities/Responce.js');
+
 
 
 
@@ -13,118 +15,117 @@ const ObjectId = require("mongodb").ObjectId;
 
 // Get Operations
 
-const getAllitemCallbackified = callbackify(function (dataCollection) {
-    return dataCollection.find();
-});
 module.exports.getAllitems = function (req, res) {
-    getAllitemCallbackified(Cars, function (err, Data) {
-        if (err) { res.status(500).json({ error: err }); }
-        else { res.status(200).json(Data); }
-    });
+    let ResObj = new Response();
+    Cars.find()
+        .then((Data) => {
+            ResObj.Data = Data;
+        }).catch((error) => {
+            ResObj.Data = error.toString();
+            ResObj.statuscode = 500;
+        }).finally(() => {
+            ResObj.sendResponce(res);
+        });
 }
 
-
-const getOneitemCallbackified = callbackify(function (dataCollection, query) {
-    return dataCollection.findOne(query);
-});
 module.exports.getgetOneitembyid = function (req, res) {
-    getOneitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, Data) {
-        if (err) { res.status(500).json({ error: err }); }
-        else { res.status(200).json(Data); }
-    });
-
+    let ResObj = new Response();
+    Cars.findOne({ _id: new ObjectId(req.params.id) })
+        .then((Data) => {
+            if (!Data) {
+                ResObj.Data = "Item Not Found, Please Check main id";
+                ResObj.statuscode = 400;
+            }
+            else { ResObj.Data = Data; }
+        }).catch((error) => {
+            ResObj.Data = error.toString();
+            ResObj.statuscode = 500;
+        }).finally(() => {
+            ResObj.sendResponce(res);
+        });
 }
 
 
 // Post Operations
 
-const createitembackified = callbackify((dataCollection, data) => {
-    return dataCollection.create(data);
-});
 exports.createitem = function (req, res) {
-
-    console.log(req.body);
-    const Newitem = {
-        Make: req.body.Make,
-        Model: req.body.Model,
-        Year: req.body.Year
-
-    };
-
-    try {
-        createitembackified(Cars, Newitem, function (err, response) {
-            if (err) { res.status(500).json({ error: err }); }
-            else { res.status(201).json(response); }
+    let ResObj = new Response();
+    const Newitem = { ...req.body };
+    Cars.create(Newitem)
+        .then((Data) => {
+            ResObj.Data = Data;
+        }).catch((error) => {
+            ResObj.Data = error.toString();
+            ResObj.statuscode = 500;
+        }).finally(() => {
+            ResObj.sendResponce(res);
         });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
 }
 
 
 //Delete Operations
 
-const deleteOneitemCallbackified = callbackify(function (dataCollection, query) {
-    return dataCollection.findByIdAndDelete(query);
-});
 module.exports.deletegetOneitembyid = function (req, res) {
-    deleteOneitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, Data) {
-        if (err) { res.status(500).json({ error: err }); }
-        else { res.status(200).json({ message: "Item Deleted" }); }
-    });
-
+    let ResObj = new Response();
+    Cars.findByIdAndDelete({ _id: new ObjectId(req.params.id) })
+        .then((Data) => {
+            if (!Data) {
+                ResObj.Data = "Item Not Found, Please Check main id";
+                ResObj.statuscode = 400;
+            }
+            else { ResObj.Data = Data; }
+        }).catch((error) => {
+            ResObj.Data = error.toString();
+            ResObj.statuscode = 500;
+        }).finally(() => {
+            ResObj.sendResponce(res);
+        });
 }
 
 
 // Update Operations
 
 
-const fullupdateitembackified = callbackify((dataCollection, query, data, overwriteV) => {
-    return dataCollection.findByIdAndUpdate(query, data, { new: true, overwrite: overwriteV });
-});
+
 exports.fullupdateeitem = function (req, res) {
-
-    let item = new Cars;
-    getOneitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, Data) {
-        if (err) {
-            res.status(500).json({ error: err });
-        }
-        else {
-
-
-            const Newitem = {
-                ...req.body,
-                Editions: Data.Editions
-            };
-
-            try {
-                fullupdateitembackified(Cars, { _id: new ObjectId(req.params.id) }, Newitem, true, function (err, response) {
-                    if (err) { res.status(500).json({ error: err }); }
-                    else { res.status(201).json(response); }
-                });
-            } catch (err) {
-                res.status(400).json({ message: err.message });
+    let ResObj = new Response();
+    Cars.findOneAndReplace(
+        { _id: new ObjectId(req.params.id) },
+        { ...req.body },
+        { new: true, useFindAndModify: true, runValidators: true }
+    )
+        .then((Data) => {
+            if (!Data) {
+                ResObj.Data = "Item Not Found, Please Check main id";
+                ResObj.statuscode = 400;
             }
-
-
-
-
-        }
-    });
+            else { ResObj.Data = Data; }
+        }).catch((error) => {
+            ResObj.Data = error.toString();
+            ResObj.statuscode = 500;
+        }).finally(() => {
+            ResObj.sendResponce(res);
+        });
 
 
 }
 
 
 exports.partialupdateeitem = function (req, res) {
-    try {
-        fullupdateitembackified(Cars, { _id: new ObjectId(req.params.id) }, { $set: req.body }, false, function (err, response) {
-            if (err) { res.status(500).json({ error: err }); }
-            else { res.status(201).json(response); }
+    itemModel.findByIdAndUpdate({ _id: new ObjectId(req.params.id) }, { $set: req.body }, { new: true, overwrite: false })
+        .then((Data) => {
+            if (!Data) {
+                ResObj.Data = "Item Not Found, Please Check main id";
+                ResObj.statuscode = 400;
+            }
+            else { ResObj.Data = Data; }
+        }).catch((error) => {
+            ResObj.Data = error.toString();
+            ResObj.statuscode = 500;
+        }).finally(() => {
+            ResObj.sendResponce(res);
         });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+
 }
 
 
