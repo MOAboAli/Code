@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
 //const EditionSchema = require("./EditionsSchema.js");
@@ -35,6 +36,6 @@ const CarsSchema = mongoose.Schema({
     Editions: [EditionSchema]
 })
 
-module.exports = mongoose.model("car", CarsSchema, "cars");
-mongoose.model("car", CarsSchema, "cars");
-//module.exports = mongoose.model("Edition", EditionSchema, "Editions");
+
+mongoose.model(process.env.Car_MODEL, CarsSchema, process.env.Carscollection);
+

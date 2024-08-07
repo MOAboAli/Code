@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Cars = mongoose.model("car");
+const Cars = mongoose.model(process.env.Car_MODEL);
 const callbackify = require("util").callbackify;
 const ObjectId = require("mongodb").ObjectId;
 
