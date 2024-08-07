@@ -16,16 +16,17 @@ const Response = require('../_Utilities/Responce.js');
 // Get Operations
 
 module.exports.getAllitems = function (req, res) {
-    let ResObj = new Response();
-    Cars.find()
-        .then((Data) => {
-            ResObj.Data = Data;
-        }).catch((error) => {
-            ResObj.Data = error.toString();
-            ResObj.statuscode = 500;
-        }).finally(() => {
-            ResObj.sendResponce(res);
-        });
+    //let ResObj = new Response();
+    new Response().solvePromiseAndResponce(Cars.find(), res);
+    // Cars.find()
+    //     .then((Data) => {
+    //         ResObj.Data = Data;
+    //     }).catch((error) => {
+    //         ResObj.Data = error.toString();
+    //         ResObj.statuscode = 500;
+    //     }).finally(() => {
+    //         ResObj.sendResponce(res);
+    //     });
 }
 
 module.exports.getgetOneitembyid = function (req, res) {
