@@ -6,11 +6,11 @@ console.log("Schema");
 const EditionSchema = mongoose.Schema({
     Name: {
         type: String,
-        required: true
+        required: false
     },
     Features: {
         type: String,
-        required: true
+        required: false
     },
     Description: {
         type: String,

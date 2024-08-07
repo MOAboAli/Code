@@ -12,7 +12,11 @@ class Response {
 
     solvePromiseAndResponce(proimes, res) {
         proimes.then((Data) => {
-            this.Data = Data;
+            if (!Data) {
+                this.Data = "Item Not Found, Please Check main id";
+                this.statuscode = 400;
+            }
+            else { this.Data = Data; }
         }).catch((error) => {
             this.Data = error.toString();
             this.statuscode = 500;

@@ -1,30 +1,17 @@
 const Cars = require("../Data_Model/Model/CarsSchema.js");
 const callbackify = require("util").callbackify;
 const ObjectId = require("mongodb").ObjectId;
+const Response = require('../_Utilities/Responce.js');
 
 
 // Get Operations
 
-const getAllitemCallbackified = callbackify(function (dataCollection, CarID) {
-    return dataCollection.findById(CarID).select("Editions");
-});
 module.exports.getAllitems = function (req, res) {
-    getAllitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, Data) {
-        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
-        else { res.status(200).json(Data); }
-    });
+    new Response().solvePromiseAndResponce(Cars.findById(CarID).select("Editions"), res);
 }
 
-
-const getOneitemCallbackified = callbackify(function (dataCollection, CarID, query) {
-    return dataCollection.findById(CarID).select("Editions").findOne(query);
-});
 module.exports.getgetOneitembyid = function (req, res) {
-    getOneitemCallbackified(Cars, { _id: new ObjectId(req.params.id) }, { _id: new ObjectId(req.params.Editionsid) }, function (err, Data) {
-        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
-        else { res.status(200).json(Data); }
-    });
-
+    new Response().solvePromiseAndResponce(Cars.findById({ _id: new ObjectId(req.params.id) }).select("Editions").findOne({ _id: new ObjectId(req.params.Editionsid) }), res);
 }
 
 
@@ -34,9 +21,6 @@ const finditembackified = callbackify((dataCollection, CarID) => {
     return dataCollection.findById(CarID).exec();//
 });
 
-const createitembackified = callbackify((item) => {
-    return item.save();
-});
 exports.createitem = function (req, res) {
 
     const Newitem = {
@@ -46,30 +30,22 @@ exports.createitem = function (req, res) {
 
     };
 
+    finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
+        let Responce = new Response()
+        if (err) {
+            //res.status(process.env.status_Code_server_error).json({ error: err });
+            Responce.Data = err.toString();
+            Responce.statuscode = 401;
+            Responce.sendResponce(res);
+        }
 
-    try {
-        finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-            if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
-            else if (!item) {
-                return res.status(404).json({ message: 'Car not found' });
-            }
-            else {
-                //console.log(item);
+        item.Editions.push(Newitem);
+        Responce.solvePromiseAndResponce(
+            item.save()
+            , res);
 
-                item.Editions.push(Newitem);
-                console.log(item.Editions);
-                createitembackified(item, function (saveErr, updatedItem) {
-                    if (saveErr) {
-                        return res.status(process.env.status_Code_server_error).json({ error: saveErr });
-                    }
-                    res.status(201).json(updatedItem);
-                });
 
-            }
-        });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+    });
 }
 
 
@@ -81,24 +57,21 @@ exports.createitem = function (req, res) {
 module.exports.deletegetOneitembyid = function (req, res) {
 
     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
-        else if (!item) {
-            return res.status(404).json({ message: 'Car not found' });
+
+        let Responce = new Response()
+        if (err) {
+            Responce.Data = err.toString();
+            Responce.statuscode = 401;
+            Responce.sendResponce(res);
         }
-        else {
+        const editionIndex = item.Editions.findIndex(edition => edition._id.toString() === new ObjectId(req.params.Editionsid));
+        item.Editions.splice(editionIndex, 1);
 
-            const editionIndex = item.Editions.findIndex(edition => edition._id.toString() === new ObjectId(req.params.Editionsid));
-            item.Editions.splice(editionIndex, 1);
-            createitembackified(item, function (saveErr, updatedItem) {
-                if (saveErr) {
-                    return res.status(process.env.status_Code_server_error).json({ error: saveErr });
-                }
-                res.status(201).json(updatedItem);
-            });
+        Responce.solvePromiseAndResponce(
+            item.save()
+            , res);
 
 
-
-        }
     });
 
 
@@ -110,69 +83,35 @@ module.exports.deletegetOneitembyid = function (req, res) {
 exports.fullupdateeitem = function (req, res) {
 
     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-        if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
-        else if (!item) {
-            return res.status(404).json({ message: 'Car not found' });
+
+        let Responce = new Response()
+        if (err) {
+            Responce.Data = err.toString();
+            Responce.statuscode = 401;
+            Responce.sendResponce(res);
         }
-        else {
-            const index = item.Editions.findIndex(edition => edition._id.toString() == req.params.Editionsid);
-            if (index === -1) {
-                return res.status(404).json({ message: 'Edition not found' });
-            }
-           
-            item.Editions[index] = {
-                ...item.Editions[index].toObject(), 
-                ...req.body 
-            };
 
-
-
-            createitembackified(item, function (saveErr, updatedItem) {
-                if (saveErr) {
-                    return res.status(process.env.status_Code_server_error).json({ error: saveErr });
-                }
-                res.status(201).json(updatedItem);
-            });
-
-
-
+        const index = item.Editions.findIndex(edition => edition._id.toString() == req.params.Editionsid);
+        if (index === -1) {
+            Responce.Data = 'Edition not found';
+            Responce.statuscode = 401;
+            Responce.sendResponce(res);
         }
+
+        item.Editions[index] = {
+            ...item.Editions[index].toObject(),
+            ...req.body
+        };
+
+
+        Responce.solvePromiseAndResponce(
+            item.save()
+            , res);
+
     });
-
-
-
-
 
 }
 
-// exports.partialupdateeitem = function (req, res) {
 
-
-//     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
-//         if (err) { res.status(process.env.status_Code_server_error).json({ error: err }); }
-//         else if (!item) {
-//             return res.status(404).json({ message: 'Car not found' });
-//         }
-//         else {
-//             const index = item.Editions.findIndex(edition => edition._id.toString() == req.params.Editionsid);
-//             const oldObj = item.Editions[index];
-
-//             item.Editions[index] = { ...oldObj, ...req.body };
-//             createitembackified(item, function (saveErr, updatedItem) {
-//                 if (saveErr) {
-//                     return res.status(process.env.status_Code_server_error).json({ error: saveErr });
-//                 }
-//                 res.status(201).json(updatedItem);
-//             });
-
-
-
-//         }
-//     });
-
-
-
-   
-// }
 
 
