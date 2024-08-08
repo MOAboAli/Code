@@ -1,5 +1,6 @@
 require("dotenv").config();
-require("./Data_Model/Database_Con/Car_DB.js")
+require("./Data_Model/Database_Con/Car_DB.js");
+const cors = require('cors');
 const express = require("express");
 const Car_Route = require("./App_Cars/Car_Router.js");
 const Edition_Route = require("./App_Editions/Edition_Router.js");
@@ -9,6 +10,13 @@ const Edition_Route = require("./App_Editions/Edition_Router.js");
 
 const app = express();
 
+const corsOptions = {
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+//corsOptions
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

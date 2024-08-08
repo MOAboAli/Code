@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-12 p-2">
+        <h3>List of All Cars</h3>
+
+    </div>
+    <div class="col-md-6 col-sm-12 col-12 p-2 text-end">
+        <a href="/games/Create" class="btn btn-primary">Add New</a>
+    </div>
+</div>
+<hr />
+
+<div *ngIf="loading">
+    <div class="row">
+        <div class="col-12 text-center">
+            <img src="/assets/img/Loading.gif" alt="Loading........." width="500" height="600">
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row" #showGames>
+    <div class="col-md-4 col-sm-6 col-12 p-2" *ngFor="let item of list">
+        <div class="card shadow-sm">
+
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                xmlns="https://source.unsplash.com/random" role="img" aria-label="Placeholder: Thumbnail"
+                preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"></rect>
+                <text x="10%" y="50%" fill="#eceeef" dy=".8em">{{item.Model}}</text>
+            </svg>
+            <div class="card-body">
+                <h6>ID: {{item._id}}</h6>
+                <hr />
+                <div class="card-text">
+                    <ul>
+                        <li>Make: {{item.Make}}</li>
+                        <li>Year: {{item.Year}}</li>
+
+                    </ul>
+
+                </div>
+                <div class="d-flex justify-content-between align-items-center p-3">
+                    <small class="text-body-secondary" *ngIf="item.Editions">
+                        <span>
+                            <b>No. of Editions: {{item.Editions.length}}:</b><br />
+
+                        </span>
+                    </small>
+                    <small class="text-body-secondary" *ngIf="!item.Editions ">
+                        <span>
+                            <b>No publisher</b><br />
+                        </span>
+                    </small>
+                    <small class="text-body-secondary">
+                        <!-- {{item.Editions?.length}} -->
+                        <!-- <start-rating [rating]=item.rate!></start-rating> -->
+                    </small>
+
+                </div>
+                <br />
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="/games/game/{{item._id}}" class="btn btn-sm btn-outline-secondary">View</a>
+                        <a href="/games/game/update/{{item._id}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    </div>
+                    <!-- <small class="text-body-secondary">{{item.year}}</small> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
