@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const path = require('path');
 
-const Controller = require("../../Controller/cars_controller.js");
-const EditionsController = require("../../Controller/Editions_controller");
+const Controller = require("./Car_Controller");
+const EditionsController = require("../App_Editions/Editions_Controller.js");
 
 router.route("/")
     .get(Controller.getAllitems)
