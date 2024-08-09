@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 col-sm-12 col-12 p-2">
-        <h3>View Car</h3>
+        <h3>Car Details</h3>
 
     </div>
     <div class="col-md-6 col-sm-12 col-12 p-2 text-end">
@@ -10,3 +10,53 @@
 <hr />
 
 <loading-symbol *ngIf="loading"></loading-symbol>
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-12">
+        <b>Manufacturer:</b><br />
+        {{itementity?.Make}}
+    </div>
+    <div class="col-md-6 col-sm-12 col-12">
+        <b>Model:</b><br />
+        {{itementity?.Model}}
+    </div>
+</div>
+<br /><br />
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-12">
+        <b>Year First Introduced:</b><br />
+        {{itementity?.Year}}
+    </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-12 p-2">
+        <h4>Editions:</h4>
+    </div>
+    <div class="col-md-6 col-sm-12 col-12 p-2 text-end">
+        <a href="/car/edit" class="btn btn-primary">Add new</a>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12 p-3">
+
+
+        <table class="table table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Features</th>
+                <th>Description</th>
+            </tr>
+            <tr><br /></tr>
+            <tr *ngFor="let item of itementity?.Editions">
+                <td>{{item.Name}}</td>
+                <td>{{item.Features}}</td>
+                <td>{{item.Description}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>

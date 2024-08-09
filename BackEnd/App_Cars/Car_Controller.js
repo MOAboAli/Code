@@ -14,7 +14,6 @@ module.exports.getgetOneitembyid = function (req, res) {
     new Response().solvePromiseAndResponce(Cars.findOne({ _id: new ObjectId(req.params.id) }), res);
 }
 
-
 // Post Operations
 
 exports.createitem = function (req, res) {

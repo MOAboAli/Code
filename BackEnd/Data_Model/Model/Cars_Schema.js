@@ -16,9 +16,10 @@ const EditionSchema = mongoose.Schema({
         type: String,
         required: false
     }
-})
+}, { _id: false });
 
 const CarsSchema = mongoose.Schema({
+    _id: String,
     Make: {
         type: String,
         required: true
@@ -34,7 +35,7 @@ const CarsSchema = mongoose.Schema({
         max: new Date().getFullYear() + 1
     },
     Editions: [EditionSchema]
-})
+}, { _id: true });
 
 
 mongoose.model(process.env.Car_MODEL, CarsSchema, process.env.Carscollection);

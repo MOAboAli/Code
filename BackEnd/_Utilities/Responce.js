@@ -11,6 +11,7 @@ class Response {
     }
 
     solvePromiseAndResponce(proimes, res) {
+
         proimes.then((Data) => {
             if (!Data) {
                 this.Data = "Item Not Found, Please Check main id";
