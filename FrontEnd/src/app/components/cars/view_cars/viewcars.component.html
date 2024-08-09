@@ -9,15 +9,7 @@
 </div>
 <hr />
 
-<div *ngIf="loading">
-    <div class="row">
-        <div class="col-12 text-center">
-            <img src="/assets/img/Loading.gif" alt="Loading........." width="500" height="600">
-
-        </div>
-    </div>
-
-</div>
+<loading-symbol *ngIf="loading"></loading-symbol>
 
 <div class="row" #showGames>
     <div class="col-md-4 col-sm-6 col-12 p-2" *ngFor="let item of list">
@@ -35,38 +27,30 @@
                 <hr />
                 <div class="card-text">
                     <ul>
-                        <li>Make: {{item.Make}}</li>
-                        <li>Year: {{item.Year}}</li>
-
+                        <li><b>Make:</b> {{item.Make}}</li>
+                        <li><b>Year:</b> {{item.Year}}</li>
                     </ul>
 
                 </div>
                 <div class="d-flex justify-content-between align-items-center p-3">
                     <small class="text-body-secondary" *ngIf="item.Editions">
                         <span>
-                            <b>No. of Editions: {{item.Editions.length}}:</b><br />
+                            <b>No. of Editions: </b>{{item.Editions.length}}<br />
 
                         </span>
                     </small>
                     <small class="text-body-secondary" *ngIf="!item.Editions ">
                         <span>
-                            <b>No publisher</b><br />
+                            <b>No Editions</b><br />
                         </span>
                     </small>
-                    <small class="text-body-secondary">
-                        <!-- {{item.Editions?.length}} -->
-                        <!-- <start-rating [rating]=item.rate!></start-rating> -->
-                    </small>
-
                 </div>
                 <br />
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <a href="/games/game/{{item._id}}" class="btn btn-sm btn-outline-secondary">View</a>
+                        <a href="/cars/view/{{item._id}}" class="btn btn-sm btn-outline-secondary">View</a>
                         <a href="/games/game/update/{{item._id}}" class="btn btn-sm btn-outline-secondary">Edit</a>
                     </div>
-                    <!-- <small class="text-body-secondary">{{item.year}}</small> -->
-
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CarsService } from '../_services/car.service';
 import { CarsDTO } from '../_dto/car.model';
 import { delay, Observable, of, switchMap, tap } from 'rxjs';
+import { LoadingSymbolComponent } from '../../../_utility_components/loading-symbol/loading-symbol.component';
 
 
 
@@ -11,7 +12,7 @@ import { delay, Observable, of, switchMap, tap } from 'rxjs';
 @Component({
   selector: 'app-games',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LoadingSymbolComponent],
   templateUrl: './viewcars.component.html'
 })
 export class viewcarComponent implements OnInit {
@@ -25,7 +26,7 @@ export class viewcarComponent implements OnInit {
 
     this.loading = true;
     try {
-      this.Service.getGames().subscribe(items => {
+      this.Service.getCars().subscribe(items => {
         this.list = items.ResponseData;
         this.loading = false;
       });

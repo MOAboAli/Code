@@ -10,20 +10,20 @@ export class CarsService {
 
   constructor(private http: HttpClient) { }
 
-  public getGames(): Observable<{ ResponseData: CarsDTO[] }> {
+  public getCars(): Observable<{ ResponseData: CarsDTO[] }> {
     return this.http.get<{ ResponseData: CarsDTO[] }>("http://localhost:8484/api/cars");
   }
 
 
-  public getOneGames(_id: string): Observable<CarsDTO> {
-    return this.http.get<CarsDTO>("http://localhost:8484/api/cars/" + _id);
+  public getOneCars(_id: string): Observable<{ ResponseData: CarsDTO }> {
+    return this.http.get<{ ResponseData: CarsDTO }>("http://localhost:8484/api/cars/" + _id);
   }
 
-  public CreateGames(Body: CarsDTO): Observable<Object> {
+  public CreateCars(Body: CarsDTO): Observable<Object> {
     return this.http.post("http://localhost:8484/api/cars", Body);
   }
 
-  public UpdateGames(_id: string, Body: CarsDTO): Observable<Object> {
+  public UpdateCars(_id: string, Body: CarsDTO): Observable<Object> {
     return this.http.patch("http://localhost:8484/api/cars/" + _id, Body);
   }
 }

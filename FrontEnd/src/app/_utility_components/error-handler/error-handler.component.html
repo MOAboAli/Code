@@ -1,0 +1,6 @@
+<div *ngIf="errorMessage" class="error-message">
+    <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+        <button type="button" class="btn btn-outline-danger" (click)="closeError()">X</button>
+    </div>
+</div>
