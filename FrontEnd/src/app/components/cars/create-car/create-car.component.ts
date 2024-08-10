@@ -32,6 +32,7 @@ export class CreateCarComponent {
     });
 
     if (this._id && this._id != "") {
+      this.labeltest = 'Edit Car';
       this.Service.getOneCars(this._id).subscribe(items => {
 
         this.PageForm = this.fb.group({
@@ -52,12 +53,17 @@ export class CreateCarComponent {
             imageUrl: [edition.imageUrl]
           }));
         });
-
         this.loading = false;
+
+
       }, error => {
         this.errorHandlerService.showError('An error occurred: ' + error.error.ResponseData);
         this.loading = false;
       });
+    }
+    else {
+      this.loading = false;
+
     }
   }
   ngOnInit(): void {

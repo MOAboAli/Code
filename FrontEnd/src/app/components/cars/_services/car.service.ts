@@ -26,4 +26,8 @@ export class CarsService {
   public UpdateCars(_id: string, Body: CarsDTO): Observable<Object> {
     return this.http.patch("http://localhost:8484/api/cars/" + _id, Body);
   }
+
+  public DeleteCars(_id: string): Observable<Object> {
+    return this.http.delete("http://localhost:8484/api/cars/" + _id);
+  }
 }
