@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-12">
                     <label for="Make">Make</label>
-                    <input type="text" id="Make" class="form-control" formControlName="Make">
+                    <input type="text" class="form-control" id="Make" formControlName="Make">
                     <div *ngIf="PageForm.get('Make')?.invalid && PageForm.get('Make')?.touched" class="text-danger">
                         <div *ngIf="PageForm.get('Make')?.errors">Error: Cannot be Empty.</div>
                     </div>
@@ -63,7 +63,8 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12 col-12">
                                     Name:
-                                    <input formControlName="Name" class="form-control mt-2" placeholder="Name">
+                                    <input formControlName="Name" class="form-control mt-2" placeholder="Name"
+                                        id="Name">
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-12">
                                     Features:
