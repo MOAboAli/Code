@@ -3,6 +3,7 @@ import { ErrorPageComponent } from './_main_components/error-page/error-page.com
 import { HomeComponent } from './components/home/home.component';
 import { viewcarComponent } from './components/cars/view_cars/viewcars.component';
 import { VeiwSingleCarComponent } from './components/cars/veiw-single-car/veiw-single-car.component';
+import { CreateCarComponent } from './components/cars/create-car/create-car.component';
 
 
 export const routes: Routes = [
@@ -18,6 +19,12 @@ export const routes: Routes = [
     },
     {
         path: "cars/view/:id", component: VeiwSingleCarComponent
+    },
+    {
+        path: "cars/create", component: CreateCarComponent
+    },
+    {
+        path: "cars/edit/:id", component: CreateCarComponent
     },
     {
         path: "**",

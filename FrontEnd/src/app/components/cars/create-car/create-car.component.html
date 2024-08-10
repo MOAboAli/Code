@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-12 p-2">
+        <h3>{{labeltest}}</h3>
+
+    </div>
+    <div class="col-md-6 col-sm-12 col-12 p-2 text-end">
+        <!-- <a href="/cars/create" class="btn btn-primary">Add New</a> -->
+    </div>
+</div>
+<hr />
+
+<loading-symbol *ngIf="loading"></loading-symbol>
+
+<div class="row">
+    <div class="col-12">
+        <form [formGroup]="PageForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-12">
+                    <label for="Make">Make</label>
+                    <input type="text" id="Make" class="form-control" formControlName="Make">
+                    <div *ngIf="PageForm.get('Make')?.invalid && PageForm.get('Make')?.touched" class="text-danger">
+                        <div *ngIf="PageForm.get('Make')?.errors">Error: Cannot be Empty.</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-12">
+                    <label for="Model">Model</label>
+                    <input type="text" id="Model" class="form-control" formControlName="Model">
+                    <div *ngIf="PageForm.get('Model')?.invalid && PageForm.get('Model')?.touched" class="text-danger">
+                        <div *ngIf="PageForm.get('Model')?.errors">Error: Cannot be Empty.</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-12">
+                    <label for="Year">Year</label>
+                    <input type="text" id="Year" class="form-control" formControlName="Year">
+                    <div *ngIf="PageForm.get('Year')?.invalid && PageForm.get('Year')?.touched" class="text-danger">
+                        <div *ngIf="PageForm.get('Year')?.errors">Error: Cannot be Empty.</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-12">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" id="imageUrl" class="form-control" formControlName="imageUrl">
+                    <div *ngIf="PageForm.get('imageUrl')?.invalid && PageForm.get('imageUrl')?.touched"
+                        class="text-danger">
+                        <div *ngIf="PageForm.get('imageUrl')?.errors">Error: Cannot be Empty.</div>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                    <div formArrayName="Editions" class="form-group">
+                        <label>Editions</label><span>&nbsp;&nbsp;</span>
+                        <button type="button" class="btn btn-secondary" (click)="addsubItem()">Add Edition</button>
+                        <br />
+
+                        <div *ngFor="let edition of subitems.controls; let i = index" [formGroupName]="i">
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-12">
+                                    Name:
+                                    <input formControlName="Name" class="form-control mt-2" placeholder="Name">
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-12">
+                                    Features:
+                                    <input formControlName="Features" class="form-control mt-2" placeholder="Features">
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12 col-12">
+                                    Image URL:
+                                    <input formControlName="imageUrl" class="form-control mt-2" placeholder="Image URL">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12 col-12">
+                                    Description:
+                                    <textarea formControlName="Description" class="form-control mt-2"
+                                        placeholder="Description"></textarea>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-12">
+                                    <button type="button" class="btn btn-danger mt-1"
+                                        (click)="removesubitem(i)">Remove</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br><br>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12 text-center">
+                    <button type="submit" class="btn btn-primary mt-3" [disabled]="">Submit</button>
+                    <!-- PageForm.invalid -->
+                    <br />
+                    <!-- {{PageForm.status}} -->
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

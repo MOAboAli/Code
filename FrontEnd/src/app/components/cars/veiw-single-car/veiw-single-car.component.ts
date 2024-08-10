@@ -30,4 +30,9 @@ export class VeiwSingleCarComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  onImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKWarUwUnMLDsnJOOPv0V659IQ1BHf1Us2yA&s';
+  }
 }

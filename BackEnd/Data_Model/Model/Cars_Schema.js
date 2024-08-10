@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 //const EditionSchema = require("./EditionsSchema.js");
 console.log("Schema");
 const EditionSchema = mongoose.Schema({
+    imageUrl: String,
     Name: {
         type: String,
         required: false
@@ -19,7 +20,8 @@ const EditionSchema = mongoose.Schema({
 }, { _id: false });
 
 const CarsSchema = mongoose.Schema({
-    _id: String,
+
+    imageUrl: String,
     Make: {
         type: String,
         required: true

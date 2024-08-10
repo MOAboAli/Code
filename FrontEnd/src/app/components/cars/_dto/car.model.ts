@@ -7,11 +7,14 @@ export class CarsDTO {
     Model?: string;
     Year?: number;
     Editions?: EditionDTO[];
+    imageUrl?: string;
 
-    // constructor(make: string, model: string, year: number, editions?: EditionDTO[]) {
-    //     this.Make = make;
-    //     this.Model = model;
-    //     this.Year = year;
-    //     this.Editions = editions;
-    // }
+    constructor(make: string, model: string, year: number, editions?: EditionDTO[], imageUrl?: string) {
+        this.Make = make;
+        this.Model = model;
+        this.Year = year;
+        this.Editions = editions;
+        this.imageUrl = imageUrl;
+
+    }
 }
