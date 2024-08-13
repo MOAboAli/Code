@@ -34,14 +34,14 @@ const CheckifUserFound = function (body, Checkfound = true) {
                 if (User && Checkfound)
                     resolve(User);
                 else if (User && !Checkfound)
-                    reject({ Error: "Error: Username Already Found." });
+                    reject("Error: Username Already Found.");
                 else if (!User && Checkfound)
-                    reject({ Error: "Error: Username Not Found." });
+                    reject("Error: Username Not Found.");
                 else
                     resolve();
 
             })
-            .catch(error => { reject({ Error: "Error: " + error.toString() }) });
+            .catch(error => { reject("Error: " + error.toString()) });
     });
 }
 
@@ -50,7 +50,7 @@ const GenandHashingPassword = function (password) {
         bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS))
             .then((generatedSalt) => { return bcrypt.hash(password, generatedSalt) })
             .then((hashedPWD) => { resolve({ Password: hashedPWD }); })
-            .catch(error => { reject({ Error: "Error: " + error.toString() }) });
+            .catch(error => { reject("Error: " + error.toString()) });
     });
 }
 
@@ -74,7 +74,7 @@ const CreateUserToken = function (Body) {
         if (token) {
             resolve(token)
         }
-        else reject({ Error: "Error: " + error.toString() })
+        else reject("Error: " + error.toString())
     })
 }
 
@@ -85,9 +85,9 @@ const ValidateUser = function (UserPassword, HashedPassword) {
                 if (result)
                     resolve();
                 else
-                    reject({ Error: "Error: Passwords doesn't not match. " })
+                    reject("Error: Passwords doesn't not match. ")
             })
-            .catch(error => { reject({ Error: "Error: " + error.toString() }) });
+            .catch(error => { reject("Error: " + error.toString()) });
 
     });
 }
