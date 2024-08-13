@@ -5,18 +5,19 @@ import { LoadingSymbolComponent } from '../../../_utility_components/loading-sym
 import { CarsDTO } from '../_dto/car.model';
 import { CarsService } from '../_services/car.service';
 import { ErrorHandlerService } from '../../../_service/error.service';
+import { TokenaccountService } from '../../user/_services/tokenaccount.service';
 
 @Component({
   selector: 'app-veiw-single-car',
   standalone: true,
-  imports: [CommonModule, RouterLink, LoadingSymbolComponent],
+  imports: [CommonModule, RouterLink, LoadingSymbolComponent, CommonModule],
   templateUrl: './veiw-single-car.component.html'
 })
 export class VeiwSingleCarComponent implements OnInit {
   loading: boolean = true;
   itementity: CarsDTO | undefined;
   _id: string = "";
-  constructor(private Service: CarsService, private route: ActivatedRoute, private errorHandlerService: ErrorHandlerService) { }
+  constructor(private Service: CarsService, private route: ActivatedRoute, private errorHandlerService: ErrorHandlerService, public authService: TokenaccountService) { }
 
   ngOnInit(): void {
     this._id = this.route.snapshot.params["id"];

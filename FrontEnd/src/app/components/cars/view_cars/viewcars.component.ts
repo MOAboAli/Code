@@ -5,6 +5,7 @@ import { CarsService } from '../_services/car.service';
 import { CarsDTO } from '../_dto/car.model';
 import { delay, Observable, of, switchMap, tap } from 'rxjs';
 import { LoadingSymbolComponent } from '../../../_utility_components/loading-symbol/loading-symbol.component';
+import { TokenaccountService } from '../../user/_services/tokenaccount.service';
 
 
 
@@ -12,12 +13,12 @@ import { LoadingSymbolComponent } from '../../../_utility_components/loading-sym
 @Component({
   selector: 'app-games',
   standalone: true,
-  imports: [CommonModule, RouterLink, LoadingSymbolComponent],
+  imports: [CommonModule, RouterLink, LoadingSymbolComponent, CommonModule],
   templateUrl: './viewcars.component.html'
 })
 export class viewcarComponent implements OnInit {
 
-  constructor(private Service: CarsService, private router: Router) { }
+  constructor(private Service: CarsService, private router: Router, public authService: TokenaccountService) { }
   loading: boolean = true;
 
   list: CarsDTO[] | undefined;

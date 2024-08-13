@@ -4,7 +4,7 @@
 
     </div>
     <div class="col-md-6 col-sm-12 col-12 p-2 text-end">
-        <a href="/cars/create" class="btn btn-primary">Add New</a>
+        <a href="/cars/create" class="btn btn-primary" *ngIf="authService.isTokenValid()">Add New</a>
     </div>
 </div>
 <hr />
@@ -53,10 +53,11 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <a href="/cars/view/{{item._id}}" class="btn btn-sm btn-outline-success">View</a>
-                        <a href="/cars/edit/{{item._id}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a href="/cars/edit/{{item._id}}" class="btn btn-sm btn-outline-secondary"
+                            *ngIf="authService.isTokenValid()">Edit</a>
                         <!-- <a href="/cars/edit/{{item._id}}" class="btn btn-sm btn-outline-danger">Delete</a> -->
-                        <button type="button" class="btn btn-sm btn-outline-danger"
-                            (click)="removeitem(item._id!)">Delete</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeitem(item._id!)"
+                            *ngIf="authService.isTokenValid()">Delete</button>
                     </div>
                 </div>
             </div>

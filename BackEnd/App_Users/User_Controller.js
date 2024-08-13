@@ -104,11 +104,11 @@ exports.ValidateToken = function (req, res, next) {
             next();
         }
         else {
-            Error = "Error: Your Token can't be verified.";
+            Error = "Error: Your Token can't be verified, Please logout and login again.";
         }
     }
     else {
-        Error = "Error: Token not found, operation abort.";
+        Error = "Error: Token not found, operation abort, Please logout and login again.";
     }
 
     if (Error != '') {

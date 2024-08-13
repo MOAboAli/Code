@@ -4,7 +4,8 @@
 
     </div>
     <div class="col-md-6 col-sm-12 col-12 p-2 text-end">
-        <a href="/cars/edit/{{itementity?._id}}" class="btn btn-primary">Edit this car</a>
+        <a href="/cars/edit/{{itementity?._id}}" class="btn btn-primary" *ngIf="authService.isTokenValid()">Edit this
+            car</a>
     </div>
 </div>
 <hr />
@@ -69,8 +70,8 @@
             <tbody>
                 <tr *ngFor="let item of itementity?.Editions;  let i = index">
                     <td>
-                        <button type="button" class="btn btn-danger mt-1"
-                            (click)="removesubitem(i.toString())">Remove</button>
+                        <button type="button" class="btn btn-danger mt-1" (click)="removesubitem(i.toString())"
+                            *ngIf="authService.isTokenValid()">Remove</button>
                     </td>
                     <td>{{item.Name}}</td>
                     <td>{{item.Features}}</td>

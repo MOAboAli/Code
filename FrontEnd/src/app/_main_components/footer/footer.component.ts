@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenaccountService } from '../../components/user/_services/tokenaccount.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  constructor(private authService: TokenaccountService) { }
 }

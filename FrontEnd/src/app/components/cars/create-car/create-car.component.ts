@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } fr
 import { EditionDTO } from '../_dto/edition.model';
 import { CarsDTO } from '../_dto/car.model';
 import { ErrorHandlerService } from '../../../_service/error.service';
+import { TokenaccountService } from '../../user/_services/tokenaccount.service';
 
 @Component({
   selector: 'app-create-car',
@@ -20,7 +21,7 @@ export class CreateCarComponent {
   labeltest = 'Create a New Car';
   PageForm: FormGroup;
   _id: string = "";
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private Service: CarsService, private errorHandlerService: ErrorHandlerService) {
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private Service: CarsService, private errorHandlerService: ErrorHandlerService, public authService: TokenaccountService) {
     this._id = this.route.snapshot.params["id"];
     this.loading = true;
     this.PageForm = this.fb.group({
@@ -94,7 +95,7 @@ export class CreateCarComponent {
 
   onSubmit() {
     const formValues = this.PageForm.value;
-    if (this.PageForm.valid) {
+    if (this.PageForm.valid && this.authService.isTokenValid()) {
       const item = new CarsDTO(
         formValues.Make,
         formValues.Model,
@@ -117,6 +118,8 @@ export class CreateCarComponent {
           }
         });
       }
+    } else {
+      this.errorHandlerService.showError('An error occurred: Either your Token Expired or the form is not valid.');
     }
   }
 }
