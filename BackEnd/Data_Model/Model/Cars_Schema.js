@@ -1,8 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 
-//const EditionSchema = require("./EditionsSchema.js");
-console.log("Schema");
 const EditionSchema = mongoose.Schema({
     imageUrl: String,
     Name: {

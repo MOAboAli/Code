@@ -30,4 +30,8 @@ export class CarsService {
   public DeleteCars(_id: string): Observable<Object> {
     return this.http.delete("http://localhost:8484/api/cars/" + _id);
   }
+
+  public DeleteEdition(_id: string, Editionindex: string): Observable<Object> {
+    return this.http.delete("http://localhost:8484/api/car/" + _id + "/Editions/" + Editionindex);
+  }
 }

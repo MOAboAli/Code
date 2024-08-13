@@ -1,4 +1,6 @@
-const Cars = require("../Data_Model/Model/Cars_Schema.js");
+// const Car = require("../Data_Model/Model/Cars_Schema.js");
+const mongoose = require("mongoose");
+const Cars = mongoose.model(process.env.Car_MODEL);
 const callbackify = require("util").callbackify;
 const ObjectId = require("mongodb").ObjectId;
 const Response = require('../_Utilities/Responce.js');
@@ -18,7 +20,7 @@ module.exports.getgetOneitembyid = function (req, res) {
 // Post Operations
 
 const finditembackified = callbackify((dataCollection, CarID) => {
-    return dataCollection.findById(CarID).exec();//
+    return dataCollection.findOne(CarID);//
 });
 
 exports.createitem = function (req, res) {
@@ -55,7 +57,7 @@ exports.createitem = function (req, res) {
 
 
 module.exports.deletegetOneitembyid = function (req, res) {
-
+    console.log(req.params.Editionindex);
     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
 
         let Responce = new Response()
@@ -64,8 +66,10 @@ module.exports.deletegetOneitembyid = function (req, res) {
             Responce.statuscode = 401;
             Responce.sendResponce(res);
         }
-        const editionIndex = item.Editions.findIndex(edition => edition._id.toString() === new ObjectId(req.params.Editionsid));
-        item.Editions.splice(editionIndex, 1);
+        const editionIndex = req.params.Editionindex
+        //const editionIndex = item.Editions.findIndex(edition => edition._id.toString() === new ObjectId(req.params.Editionsid));
+        if (editionIndex)
+            item.Editions.splice(editionIndex, 1);
 
         Responce.solvePromiseAndResponce(
             item.save()

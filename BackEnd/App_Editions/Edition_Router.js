@@ -7,7 +7,7 @@ router.route("/:id/Editions")
     .get(EditionsController.getAllitems)
     .post(EditionsController.createitem);
 
-router.route("/:id/Editions/:Editionsid")
+router.route("/:id/Editions/:Editionindex")
     .get(EditionsController.getgetOneitembyid)
     .delete(EditionsController.deletegetOneitembyid)
     .put(EditionsController.fullupdateeitem)

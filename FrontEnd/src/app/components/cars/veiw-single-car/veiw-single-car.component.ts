@@ -22,6 +22,11 @@ export class VeiwSingleCarComponent implements OnInit {
     this._id = this.route.snapshot.params["id"];
     this.loading = true;
 
+    this.GetCarItem();
+  }
+
+
+  GetCarItem() {
     this.Service.getOneCars(this._id).subscribe(items => {
       this.itementity = items.ResponseData;
       this.loading = false;
@@ -35,4 +40,21 @@ export class VeiwSingleCarComponent implements OnInit {
     const imgElement = event.target as HTMLImageElement;
     imgElement.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKWarUwUnMLDsnJOOPv0V659IQ1BHf1Us2yA&s';
   }
+
+  removesubitem(index: string) {
+    this.loading = true;
+    this.Service.DeleteEdition(this._id, index).subscribe(resp => {
+      if (!resp.hasOwnProperty('error')) {
+        //this.router.navigate(['/cars']);
+        this.GetCarItem();
+
+      }
+      else {
+        this.errorHandlerService.showError('An error occurred, please try again later. ');
+        this.loading = false;
+      }
+    });
+
+  }
+
 }

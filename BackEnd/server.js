@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/cars", Car_Route);
 app.use("/api/car", Edition_Route);
+app.use("/api/user", Edition_Route);
 
 const server = app.listen(process.env.PORT, function () {
     const port = server.address().port;

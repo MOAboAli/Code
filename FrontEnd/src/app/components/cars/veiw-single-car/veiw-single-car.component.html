@@ -67,8 +67,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of itementity?.Editions">
-                    <td> <a class="btn btn-outline-success"> Edit</a> </td>
+                <tr *ngFor="let item of itementity?.Editions;  let i = index">
+                    <td>
+                        <button type="button" class="btn btn-danger mt-1"
+                            (click)="removesubitem(i.toString())">Remove</button>
+                    </td>
                     <td>{{item.Name}}</td>
                     <td>{{item.Features}}</td>
                     <td>{{item.Description}}</td>
