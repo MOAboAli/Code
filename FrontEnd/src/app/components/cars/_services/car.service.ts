@@ -16,6 +16,7 @@ export class CarsService {
 
 
   public getOneCars(_id: string): Observable<{ ResponseData: CarsDTO }> {
+    // console.log(this.http)
     return this.http.get<{ ResponseData: CarsDTO }>("http://localhost:8484/api/cars/" + _id);
   }
 

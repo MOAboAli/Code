@@ -95,12 +95,20 @@ const ValidateUser = function (UserPassword, HashedPassword) {
 /////////////////////////
 
 exports.ValidateToken = function (req, res, next) {
+
     const resd = new Response();
     let Error = '';
-    const token = req.headers["authorization"].split(" ")[1]
-    if (token) {
+
+    let token = "";
+    console.log(req.headers["authorization"])
+    if (req.headers["authorization"])
+        token = req.headers["authorization"].split(" ")[1];
+
+    if (token != "null") {
+
         const decodedToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
         if (decodedToken) {
+
             next();
         }
         else {

@@ -17,6 +17,7 @@ export class TokenaccountService {
   }
 
   getToken(): string | null {
+    //console.log(this.tokenKey);
     return sessionStorage.getItem(this.tokenKey);
   }
 
