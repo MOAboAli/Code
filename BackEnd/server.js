@@ -11,7 +11,7 @@ const User_Route = require("./App_Users/User_Router.js");
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:4200',
+    origin: process.env.FrontEndURL,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 };
@@ -21,9 +21,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/cars", Car_Route);
-app.use("/api/car", Edition_Route);
-app.use("/api/user", User_Route);
+app.use(process.env.MainSubSetUrl + process.env.CarsSubSetUrl, Car_Route);
+app.use(process.env.MainSubSetUrl + process.env.CarSubSetUrl, Edition_Route);
+app.use(process.env.MainSubSetUrl + process.env.UserSubSetUrl, User_Route);
 
 const server = app.listen(process.env.PORT, function () {
     const port = server.address().port;

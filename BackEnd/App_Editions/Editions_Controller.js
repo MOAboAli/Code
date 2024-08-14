@@ -35,9 +35,8 @@ exports.createitem = function (req, res) {
     finditembackified(Cars, { _id: new ObjectId(req.params.id) }, function (err, item) {
         let Responce = new Response()
         if (err) {
-            //res.status(process.env.status_Code_server_error).json({ error: err });
             Responce.Data = err.toString();
-            Responce.statuscode = 401;
+            Responce.statuscode = process.env.status_Code_not_found;
             Responce.sendResponce(res);
         }
 
@@ -63,11 +62,10 @@ module.exports.deletegetOneitembyid = function (req, res) {
         let Responce = new Response()
         if (err) {
             Responce.Data = err.toString();
-            Responce.statuscode = 401;
+            Responce.statuscode = process.env.status_Code_not_found;
             Responce.sendResponce(res);
         }
         const editionIndex = req.params.Editionindex
-        //const editionIndex = item.Editions.findIndex(edition => edition._id.toString() === new ObjectId(req.params.Editionsid));
         if (editionIndex)
             item.Editions.splice(editionIndex, 1);
 
@@ -91,14 +89,14 @@ exports.fullupdateeitem = function (req, res) {
         let Responce = new Response()
         if (err) {
             Responce.Data = err.toString();
-            Responce.statuscode = 401;
+            Responce.statuscode = process.env.status_Code_not_found;
             Responce.sendResponce(res);
         }
 
         const index = item.Editions.findIndex(edition => edition._id.toString() == req.params.Editionsid);
         if (index === -1) {
             Responce.Data = 'Edition not found';
-            Responce.statuscode = 401;
+            Responce.statuscode = process.env.status_Code_not_found;
             Responce.sendResponce(res);
         }
 

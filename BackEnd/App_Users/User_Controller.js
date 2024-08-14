@@ -13,7 +13,7 @@ exports.registration = function (req, res) {
         .then((user) => resd.solvePromiseAndResponce(Users.create(user), res))
         .catch(error => {
             resd.Data = error;
-            resd.statuscode = "500";
+            resd.statuscode = process.env.status_Code_server_error;
             resd.sendResponce(res);
         });
 }
@@ -34,9 +34,9 @@ const CheckifUserFound = function (body, Checkfound = true) {
                 if (User && Checkfound)
                     resolve(User);
                 else if (User && !Checkfound)
-                    reject("Error: Username Already Found.");
+                    reject(process.env.Message_Username_AlreadyFound);
                 else if (!User && Checkfound)
-                    reject("Error: Username Not Found.");
+                    reject(process.env.Message_Username_NotFound);
                 else
                     resolve();
 
@@ -63,14 +63,14 @@ exports.authenticate = function (req, res) {
         .then(() => resd.solvePromiseAndResponce(CreateUserToken(req.body), res))
         .catch(error => {
             resd.Data = error;
-            resd.statuscode = "500";
+            resd.statuscode = process.env.status_Code_server_error;
             resd.sendResponce(res);
         });
 }
 
 const CreateUserToken = function (Body) {
     return new Promise((resolve, reject) => {
-        const token = jwt.sign({ username: Body.Username }, process.env.JWT_PRIVATE_KEY, { expiresIn: '7d' })
+        const token = jwt.sign({ username: Body.Username }, process.env.JWT_PRIVATE_KEY, { expiresIn: process.env.JWT_Expire_Date })
         if (token) {
             resolve(token)
         }
@@ -85,7 +85,7 @@ const ValidateUser = function (UserPassword, HashedPassword) {
                 if (result)
                     resolve();
                 else
-                    reject("Error: Passwords doesn't not match. ")
+                    reject(process.env.Message_Passwords_NotMatch)
             })
             .catch(error => { reject("Error: " + error.toString()) });
 
@@ -100,7 +100,6 @@ exports.ValidateToken = function (req, res, next) {
     let Error = '';
 
     let token = "";
-    console.log(req.headers["authorization"])
     if (req.headers["authorization"])
         token = req.headers["authorization"].split(" ")[1];
 
@@ -112,16 +111,16 @@ exports.ValidateToken = function (req, res, next) {
             next();
         }
         else {
-            Error = "Error: Your Token can't be verified, Please logout and login again.";
+            Error = process.env.Message_TokenNotFound;
         }
     }
     else {
-        Error = "Error: Token not found, operation abort, Please logout and login again.";
+        Error = process.env.Message_TokenNotFound;
     }
 
     if (Error != '') {
         resd.Data = Error;
-        resd.statuscode = "400";
+        resd.statuscode = process.env.status_Code_not_found;
         resd.sendResponce(res);
     }
 

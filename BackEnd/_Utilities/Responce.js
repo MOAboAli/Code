@@ -2,7 +2,7 @@ class Response {
     Data;
     statuscode;
     constructor(e) {
-        this.statuscode = 200;
+        this.statuscode = process.env.status_Code_success;
     }
 
 
@@ -15,12 +15,12 @@ class Response {
         proimes.then((Data) => {
             if (!Data) {
                 this.Data = "Item Not Found, Please Check main id";
-                this.statuscode = 400;
+                this.statuscode = process.env.status_Code_not_found;
             }
             else { this.Data = Data; }
         }).catch((error) => {
             this.Data = error.toString();
-            this.statuscode = 500;
+            this.statuscode = process.env.status_Code_server_error;
         }).finally(() => {
             this.sendResponce(res);
         });
