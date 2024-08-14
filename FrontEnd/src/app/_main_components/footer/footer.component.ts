@@ -5,8 +5,7 @@ import { TokenaccountService } from '../../components/user/_services/tokenaccoun
   selector: 'app-footer',
   standalone: true,
   imports: [],
-  templateUrl: './footer.component.html',
-  // styleUrl: './footer.component.css'
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
 

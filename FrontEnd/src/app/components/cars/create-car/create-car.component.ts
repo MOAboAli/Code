@@ -8,6 +8,7 @@ import { EditionDTO } from '../_dto/edition.model';
 import { CarsDTO } from '../_dto/car.model';
 import { ErrorHandlerService } from '../../../_service/error.service';
 import { TokenaccountService } from '../../user/_services/tokenaccount.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-create-car',
@@ -41,10 +42,9 @@ export class CreateCarComponent {
           Model: [items.ResponseData.Model, [Validators.required]],
           Year: [items.ResponseData.Year, [Validators.min(1900), Validators.max(new Date().getFullYear())]],
           imageUrl: [items.ResponseData.imageUrl],
-          Editions: this.fb.array([])//items.ResponseData.Editions!)
+          Editions: this.fb.array([])
         });
 
-        // Set the Editions FormArray with FormGroups
         const editionsFormArray = this.PageForm.get('Editions') as FormArray;
         items.ResponseData.Editions!.forEach((edition: EditionDTO) => {
           editionsFormArray.push(this.fb.group({
@@ -119,7 +119,7 @@ export class CreateCarComponent {
         });
       }
     } else {
-      this.errorHandlerService.showError('An error occurred: Either your Token Expired or the form is not valid.');
+      this.errorHandlerService.showError(environment.ErrorMessage + ", Either your Token Expired or the form is not valid.");
     }
   }
 }

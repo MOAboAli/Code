@@ -7,6 +7,7 @@ import { ErrorHandlerService } from '../../../_service/error.service';
 import { UserDto } from '../_dto/user.model';
 import { LoadingSymbolComponent } from '../../../_utility_components/loading-symbol/loading-symbol.component';
 import { TokenaccountService } from '../_services/tokenaccount.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -50,7 +51,7 @@ export class LoginComponent {
         this.loading = false;
       });
     } else {
-      this.errorHandlerService.showError('An error occurred: This Form is not Valid ');
+      this.errorHandlerService.showError(environment.ErrorMessageForm);
       this.loading = false;
     }
   }

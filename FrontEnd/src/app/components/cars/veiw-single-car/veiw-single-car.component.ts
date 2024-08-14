@@ -6,6 +6,7 @@ import { CarsDTO } from '../_dto/car.model';
 import { CarsService } from '../_services/car.service';
 import { ErrorHandlerService } from '../../../_service/error.service';
 import { TokenaccountService } from '../../user/_services/tokenaccount.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-veiw-single-car',
@@ -39,7 +40,7 @@ export class VeiwSingleCarComponent implements OnInit {
 
   onImageError(event: Event) {
     const imgElement = event.target as HTMLImageElement;
-    imgElement.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKWarUwUnMLDsnJOOPv0V659IQ1BHf1Us2yA&s';
+    imgElement.src = environment.ErrorImage;
   }
 
   removesubitem(index: string) {
@@ -51,7 +52,7 @@ export class VeiwSingleCarComponent implements OnInit {
 
       }
       else {
-        this.errorHandlerService.showError('An error occurred, please try again later. ');
+        this.errorHandlerService.showError(environment.ErrorMessage);
         this.loading = false;
       }
     });

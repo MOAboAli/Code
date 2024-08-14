@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ErrorHandlerService } from '../../../_service/error.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class TokenaccountService {
     const validtoken = token ? !this.jwtHelper.isTokenExpired(token) : false;
 
     if (!validtoken)
-      this.errorHandlerService.showError('Your Session Expired, Please Login Again.');
+      this.errorHandlerService.showError(environment.ErrorMessageSession);
 
     return validtoken
   }
