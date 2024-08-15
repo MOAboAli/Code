@@ -1,0 +1,18 @@
+{
+  "name": "php",
+  "version": "1.0.0",
+  "description": "Instructions\r Your Person Hobby Program is a program that demonstrates a hobby you have. Make sure your main hobby has no more than 3 attributes, and it also has an array of sub-documents. Each sub-document also should not have more than 3 attributes. (Example: Football main collection teams, a team has attributes (country, year, color) sub-document is player (name and age as attributes)).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:backend": "cd BackEnd && nodemon ./server.js",
+    "start:frontend": "cd FrontEnd && ng serve",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
+  }
+}
